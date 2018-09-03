@@ -14,6 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_apparcar"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCrVcEa9ago1h7ak5ePi_zr0kh95iz2hRU"/>
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
