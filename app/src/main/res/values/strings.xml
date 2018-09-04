@@ -19,4 +19,12 @@
     <string name="permission_rationale">"Se requieren permisos de contacto para acceso mediante
         correo electrónico."
     </string>
+
+    <string name="save_cercania" >cercania</string>
+    <string name="save_precio" >precio</string>
+    <string name="save_con_servicios" >conServicios</string>
+    <string name="save_con_ofertas" >conOfertas</string>
+    <string name="save_dejar_llaves" >dejarLLaves</string>
+
+
 </resources>
