@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PreferenciasActivity">
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin_generic_16dp"
+                android:text="@string/texto_preferencias"
+                android:textAllCaps="false"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_margin_generic_16dp"
+                android:layout_marginRight="@dimen/activity_margin_generic_16dp"
+                android:text="Por favor ajuste sus preferencias y luego presione el botón GUARDAR PREFERENCIAS." />
+
+            <TextView
+                android:id="@+id/tv_cercania"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin_generic_16dp"
+                android:text="Cercanía: 0 mts -> 0 km" />
+
+            <SeekBar
+                android:id="@+id/seekBar_cercania"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_margin_generic_16dp"
+                android:layout_marginRight="@dimen/activity_margin_generic_16dp"
+                android:max="5000"
+                android:progress="10" />
+
+            <TextView
+                android:id="@+id/tv_precio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin_generic_16dp"
+                android:text="Precio: $ 48 Pesos" />
+
+            <SeekBar
+                android:id="@+id/seekBar_precio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_margin_generic_16dp"
+                android:layout_marginRight="@dimen/activity_margin_generic_16dp"
+                android:max="105"
+                android:progress="1" />
+
+            <Switch
+                android:id="@+id/switch_ofertas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin_generic_16dp"
+                android:checked="false"
+                android:text="¿Con ofertas?" />
+
+            <Switch
+                android:id="@+id/switch_servicios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin_generic_16dp"
+                android:checked="false"
+                android:text="¿Con servicios?" />
+
+            <Switch
+                android:id="@+id/switch_dejar_llaves"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_margin_generic_16dp"
+                android:checked="false"
+                android:text="¿Dejar llaves?" />
+
+            <Button
+                android:id="@+id/btn_guardar_preferencias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_margin_generic_16dp"
+                android:layout_marginRight="@dimen/activity_margin_generic_16dp"
+                android:text="Guardar Preferencias" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

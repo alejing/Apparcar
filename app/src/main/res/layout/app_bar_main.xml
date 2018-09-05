@@ -23,13 +23,37 @@
     <include layout="@layout/content_main" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/miUbicacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin_botton_1"
+        android:layout_marginRight="@dimen/fab_margin"
+        app:backgroundTint="@color/colorPrimary"
+        app:rippleColor="@android:color/holo_blue_dark"
+        app:srcCompat="@drawable/ic_my_location_white_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/miBuscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/fab_margin_botton_2"
+        android:layout_marginRight="@dimen/fab_margin"
+        app:backgroundTint="@color/colorPrimary"
+        app:rippleColor="@android:color/holo_blue_dark"
+        app:srcCompat="@drawable/ic_search_black_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/miLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin_botton_3"
         app:backgroundTint="@color/colorPrimary"
         app:rippleColor="@android:color/holo_blue_dark"
         app:srcCompat="@drawable/ic_local_parking_white_24dp" />
+
+
 
 </android.support.design.widget.CoordinatorLayout>

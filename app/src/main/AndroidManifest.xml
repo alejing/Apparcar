@@ -9,7 +9,7 @@
     <!-- Permiso de acceso a internet, y localización -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +20,8 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCrVcEa9ago1h7ak5ePi_zr0kh95iz2hRU"/>
+            android:value="AIzaSyCrVcEa9ago1h7ak5ePi_zr0kh95iz2hRU" />
+
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -33,10 +34,14 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".PreferenciasActivity"
+            android:label="@string/title_activity_preferencias"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

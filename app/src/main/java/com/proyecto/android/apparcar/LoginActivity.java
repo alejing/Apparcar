@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world, ","a@a.com:12345"
+            "foo@example.com:hello", "bar@example.com:world, ","alejing@gmail.com:12345"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -342,11 +342,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putInt(getString(R.string.save_cercania), 200);
-                editor.putInt(getString(R.string.save_precio), 48);
-                editor.putBoolean(getString(R.string.save_con_ofertas), false);
-                editor.putBoolean(getString(R.string.save_con_servicios), false);
-                editor.putBoolean(getString(R.string.save_dejar_llaves), false);
+                editor.putInt(getString(R.string.save_cercania), 500); // 500 mts defecto
+                editor.putInt(getString(R.string.save_precio), 48); // $48
+                editor.putBoolean(getString(R.string.save_con_ofertas), false); // sin ofertas
+                editor.putBoolean(getString(R.string.save_con_servicios), false); // sin servicios
+                editor.putBoolean(getString(R.string.save_dejar_llaves), false); // sin dejar llaves
                 // Commit the edits!
                 editor.commit();
 

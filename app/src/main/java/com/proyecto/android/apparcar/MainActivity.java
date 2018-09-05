@@ -39,6 +39,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
@@ -63,6 +66,10 @@ public class MainActivity extends AppCompatActivity
     private int cercania, precio;
     private boolean conServicios, conOfertas, dejarLLaves;
 
+    //
+    private List<DetallesParqueadero> listaParqueaderosTotal;
+    private List<DetallesParqueadero> listaParqueaderosEncontrados;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,14 +77,33 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton miUbicacion = (FloatingActionButton) findViewById(R.id.miUbicacion);
+        miUbicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Vuelve y centra el mapa en la teniendo en cuenta la ubicación del usuario
+                miUbicacion(mMap);
+            }
+        });
+
+        FloatingActionButton miBuscar = (FloatingActionButton) findViewById(R.id.miBuscar);
+        miBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            }
+        });
+
+        FloatingActionButton miLista = (FloatingActionButton) findViewById(R.id.miLista);
+        miLista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -90,25 +116,7 @@ public class MainActivity extends AppCompatActivity
 
 
         // Se capturan por defecto las preferencias del usuario al buscar parqueaderos
-
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-
-        cercania = settings.getInt(getString(R.string.save_cercania), 200);
-        precio = settings.getInt(getString(R.string.save_precio), 48);
-        conOfertas = settings.getBoolean(getString(R.string.save_con_ofertas), false);
-        conServicios = settings.getBoolean(getString(R.string.save_con_servicios), false);
-        dejarLLaves = settings.getBoolean(getString(R.string.save_dejar_llaves), false);
-
-        /*
-        String pref = "Cercanía: "+ String.valueOf(cercania) +
-                      "\nPrecio: " + String.valueOf(precio) +
-                      "\nconOfertas: " + String.valueOf(conOfertas) +
-                      "\nconServicios: " + String.valueOf(conServicios) +
-                      "\ndejarLLaves: " + String.valueOf(dejarLLaves);
-
-        Toast.makeText(MainActivity.this, pref, Toast.LENGTH_LONG).show();
-        */
-
+        recuperarPreferenciasDeUsuario_Parqueaderos();
 
         // Manejo de permisos para acceso a localización por parte del usuario
         try {
@@ -130,11 +138,6 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        // Descarga asíncrona de parqueaderos según petición de usuario
-        TareaAsincronaPeticionParqueaderos myAsyncTasks = new TareaAsincronaPeticionParqueaderos();
-        myAsyncTasks.execute();
-
-
         //Se crean los procedimientos y métodos para crear un mapa o una vista del mismo
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -146,6 +149,25 @@ public class MainActivity extends AppCompatActivity
         mMapView.getMapAsync(this);
 
 
+    }
+    // Metodo para recuperar las preferencias del usuario según caracteristicas al buscar un parqueadero
+    public void recuperarPreferenciasDeUsuario_Parqueaderos(){
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        cercania = settings.getInt(getString(R.string.save_cercania), 500);
+        precio = settings.getInt(getString(R.string.save_precio), 48);
+        conOfertas = settings.getBoolean(getString(R.string.save_con_ofertas), false);
+        conServicios = settings.getBoolean(getString(R.string.save_con_servicios), false);
+        dejarLLaves = settings.getBoolean(getString(R.string.save_dejar_llaves), false);
+
+        /*
+        String pref = "Cercanía: "+ String.valueOf(cercania) +
+                      "\nPrecio: " + String.valueOf(precio) +
+                      "\nconOfertas: " + String.valueOf(conOfertas) +
+                      "\nconServicios: " + String.valueOf(conServicios) +
+                      "\ndejarLLaves: " + String.valueOf(dejarLLaves);
+
+        Toast.makeText(MainActivity.this, pref, Toast.LENGTH_LONG).show();
+        */
     }
 
     @Override
@@ -207,6 +229,10 @@ public class MainActivity extends AppCompatActivity
         // Agregó mi ubicación en un marcador negro en forma de carro
         miUbicacion(map);
 
+        // Descarga asíncrona de parqueaderos según petición de usuario
+        //TareaAsincronaPeticionParqueaderos myAsyncTasks = new TareaAsincronaPeticionParqueaderos();
+        //myAsyncTasks.execute();
+
         // 0. Revisar como poner el mapa fuera de esta función, en la AsynTask .......
         // 1. Hay que iterar el JSONArray para convertirlo en una lista con el fin de pasarla vista a vista
         // 2. Agregar los parqueaderos mas cercanos según preferencias del usuario
@@ -237,8 +263,6 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
         */
-
-
     }
 
     // Método que me permite ubicar según mi ubicación GPS
@@ -249,7 +273,7 @@ public class MainActivity extends AppCompatActivity
 
         map.addMarker(new MarkerOptions().
                 position(miUbicacion).
-                title("Estoy aquí")
+                title("Yo!")
                 .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_carro)));
 
         // Elimina las indicaciones de zoom, giros y demás
@@ -263,6 +287,23 @@ public class MainActivity extends AppCompatActivity
                 .build();                   // Creates a CameraPosition from the builder
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
+    }
+
+    // Método para todos los parqueaderos
+    public void verTodosLosParqueaderos(List<DetallesParqueadero> list){
+        if(mMap != null) {
+            for (int i = 0; i < list.size(); i++) {
+                DetallesParqueadero parqueadero;
+                parqueadero = list.get(i);
+
+                LatLng parqueaderoLarLng = new LatLng(parqueadero.getLatitud(), parqueadero.getLongitud());
+
+                mMap.addMarker(new MarkerOptions().
+                        position(parqueaderoLarLng).
+                        title(String.valueOf(parqueadero.getIdParqueadero()))
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_parqueadero_azul)));
+            }
+        }
     }
 
 
@@ -299,9 +340,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_recargar) {
 
-            // 5. Aquí toca poner la configuración para centrar nuevamente el mapa según la ubicación del usuario
+            // Recarga las peticiones al servidor de parqueaderos
+            TareaAsincronaPeticionParqueaderos myAsyncTasks = new TareaAsincronaPeticionParqueaderos();
+            myAsyncTasks.execute();
+            // Se vuelve a centrar el mapa teniendo en cuenta mi ubicación
             miUbicacion(mMap);
             //
             return true;
@@ -316,18 +360,12 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_preferencias) {
+            // Ir a preferencias del usuario
+            Intent intent = new Intent(MainActivity.this, PreferenciasActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_cerrar_sesion) {
+            // Preguntar y cerrar sesión
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -345,16 +383,13 @@ public class MainActivity extends AppCompatActivity
         protected void onPreExecute() {
             super.onPreExecute();
             //Display progress bar
-            /*
             pDialog = new ProgressDialog(MainActivity.this);
-            pDialog.setMessage("Loading Data.. Please wait...");
+            pDialog.setMessage(getString(R.string.descargando_datos));
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
-            */
-            Toast.makeText(MainActivity.this,
-                    "onPre",
-                    Toast.LENGTH_SHORT).show();
+
+            //Toast.makeText(MainActivity.this, "onPre", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -366,29 +401,87 @@ public class MainActivity extends AppCompatActivity
 
         protected void onPostExecute(String result) {
 
-            Toast.makeText(MainActivity.this,
-                    "onPost",
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this,"onPost", Toast.LENGTH_SHORT).show();
 
-            //pDialog.dismiss();
+            pDialog.dismiss();
 
             runOnUiThread(new Runnable() {
                 public void run() {
 
                     try {
-                        parqueaderoArray = new JSONArray(response);
                         if(mMap != null){
+                            parqueaderoArray = new JSONArray(response);
+                            listaParqueaderosTotal = new ArrayList<>();
+                            listaParqueaderosEncontrados = new ArrayList<>();
                             for(int p = 0; p < parqueaderoArray.length(); p++){
-                                JSONObject parqueadero = null;
 
-                                parqueadero = parqueaderoArray.getJSONObject(p);
+                                DetallesParqueadero parqueadero = new DetallesParqueadero();
+                                JSONObject arrayParqueadero = parqueaderoArray.getJSONObject(p);
 
-                                LatLng parqueaderoLarLng = new LatLng(parqueadero.getDouble("latitud"), parqueadero.getDouble("longitud"));
+                                parqueadero.setIdParqueadero(arrayParqueadero.getInt("idParqueadero"));
+                                parqueadero.setCupos(arrayParqueadero.getInt("cupos"));
+                                parqueadero.setCuposDiscapacitados(arrayParqueadero.getInt("cuposDiscapacitados"));
+                                parqueadero.setCuposDisponibles(arrayParqueadero.getInt("cuposDisponibles"));
 
-                                mMap.addMarker(new MarkerOptions().
-                                        position(parqueaderoLarLng).
-                                        title(String.valueOf(parqueadero.getInt("idParqueadero")))
-                                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_parqueadero_azul)));
+
+                                parqueadero.setDescripcion(arrayParqueadero.getString("descripcion"));
+                                parqueadero.setDireccion(arrayParqueadero.getString("direccion"));
+                                parqueadero.setCalle(arrayParqueadero.getString("calle"));
+                                parqueadero.setCarrera(arrayParqueadero.getString("carrera"));
+                                parqueadero.setBarrio(arrayParqueadero.getString("barrio"));
+                                parqueadero.setCiudad(arrayParqueadero.getString("ciudad"));
+
+                                parqueadero.setLatitud(arrayParqueadero.getDouble("latitud"));
+                                parqueadero.setLongitud(arrayParqueadero.getDouble("longitud"));
+
+                                parqueadero.setValorTarifaPlana(arrayParqueadero.getDouble("valorTarifaPlana"));
+                                parqueadero.setValorTarifaCarro(arrayParqueadero.getDouble("valorTarifaCarro"));
+                                parqueadero.setValorTarifaMoto(arrayParqueadero.getDouble("valorTarifaMoto"));
+                                parqueadero.setValorTarifaBici(arrayParqueadero.getDouble("valorTarifaBici"));
+
+                                if(arrayParqueadero.getString("esSobrecupo").equals("0")){
+                                    parqueadero.setEsSobrecupo(false);
+                                }else if(arrayParqueadero.getString("esSobrecupo").equals("1")){
+                                    parqueadero.setEsSobrecupo(true);
+                                }else{
+                                    parqueadero.setEsSobrecupo(false);
+                                }
+
+                                if(arrayParqueadero.getString("esTarifaPlana").equals("0")){
+                                    parqueadero.setEsTarifaPlana(false);
+                                }else if(arrayParqueadero.getString("esTarifaPlana").equals("1")){
+                                    parqueadero.setEsTarifaPlana(true);
+                                }else{
+                                    parqueadero.setEsTarifaPlana(false);
+                                }
+
+                                listaParqueaderosTotal.add(parqueadero);
+
+                                // Filtrar y seleccionar en una nueva lista según preferencias de usuario
+                                recuperarPreferenciasDeUsuario_Parqueaderos(); // Se recuperan las preferencias del usuario
+                                // Se procede a calcular distancia en linea recta (G(s) algorítmo voraz)
+                                double d_km = (double)(cercania / 1000.0);
+                                double d;
+
+                                d = (6371 * Math.acos( Math.cos(Math.toRadians(miLatitud)) * Math.cos(Math.toRadians(parqueadero.getLatitud())) * Math.cos( Math.toRadians(parqueadero.getLongitud()) - Math.toRadians(miLongitud)) + Math.sin(Math.toRadians(miLatitud)) * Math.sin( Math.toRadians(parqueadero.getLatitud()))));
+
+                                if(d <= d_km) {
+                                    listaParqueaderosEncontrados.add(parqueadero);
+                                }
+                            }
+
+                            // Ver todos los parqueaderos en mapa
+                            // verTodosLosParqueaderos(listaParqueaderosTotal);
+
+                            // ver todos los parqueaderos encontrados según prefrencias de usuario
+                            if(listaParqueaderosEncontrados.size() == 0){
+                                Toast.makeText(MainActivity.this,
+                                                "No se han encontrado Parqueaderos con las características deseadas.",
+                                                Toast.LENGTH_LONG)
+                                                .show();
+                            }else{
+                                verTodosLosParqueaderos(listaParqueaderosEncontrados);
+                                Toast.makeText(MainActivity.this,"Encontrados: " + String.valueOf(listaParqueaderosEncontrados.size()), Toast.LENGTH_SHORT).show();
                             }
                         }
                     } catch (JSONException e) {
