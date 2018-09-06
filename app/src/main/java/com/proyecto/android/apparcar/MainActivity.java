@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -98,12 +99,14 @@ public class MainActivity extends AppCompatActivity
         miLista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // Se configura la apertura de la vista tipo lista de parqueaderos, enviando el array de parqueaderos encontrados según filtro de usuario
+                Intent intent = new Intent(MainActivity.this, ListaParqueaderosActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("listaParqueaderosEncontrados", (ArrayList<? extends Parcelable>) listaParqueaderosEncontrados);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -440,19 +443,19 @@ public class MainActivity extends AppCompatActivity
                                 parqueadero.setValorTarifaBici(arrayParqueadero.getDouble("valorTarifaBici"));
 
                                 if(arrayParqueadero.getString("esSobrecupo").equals("0")){
-                                    parqueadero.setEsSobrecupo(false);
+                                    parqueadero.setEsSobrecupo(1);
                                 }else if(arrayParqueadero.getString("esSobrecupo").equals("1")){
-                                    parqueadero.setEsSobrecupo(true);
+                                    parqueadero.setEsSobrecupo(0);
                                 }else{
-                                    parqueadero.setEsSobrecupo(false);
+                                    parqueadero.setEsSobrecupo(0);
                                 }
 
                                 if(arrayParqueadero.getString("esTarifaPlana").equals("0")){
-                                    parqueadero.setEsTarifaPlana(false);
+                                    parqueadero.setEsTarifaPlana(1);
                                 }else if(arrayParqueadero.getString("esTarifaPlana").equals("1")){
-                                    parqueadero.setEsTarifaPlana(true);
+                                    parqueadero.setEsTarifaPlana(0);
                                 }else{
-                                    parqueadero.setEsTarifaPlana(false);
+                                    parqueadero.setEsTarifaPlana(0);
                                 }
 
                                 listaParqueaderosTotal.add(parqueadero);

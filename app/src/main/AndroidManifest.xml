@@ -41,6 +41,10 @@
         <activity
             android:name=".PreferenciasActivity"
             android:label="@string/title_activity_preferencias"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ListaParqueaderosActivity"
+            android:label="@string/title_activity_lista_parqueaderos"
             android:parentActivityName=".MainActivity"/>
     </application>
 

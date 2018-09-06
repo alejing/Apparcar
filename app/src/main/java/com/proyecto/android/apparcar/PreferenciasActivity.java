@@ -21,10 +21,13 @@ public class PreferenciasActivity extends AppCompatActivity {
     public static final String PREFS_NAME = "MisPreferenciasParqueadero";
     private int cercania, precio;
     private boolean conOfertas, conServicios, dejarLLaves;
-
+    // Precio mínimo y máximo del valor de minuto de los parqueaderos para vehículos
     private int MIN_PRECIO = 48;
     private int MAX_PRECIO = 105;
     //private int STEP_PRECIO = 1;
+    // Cercanía mínima y máxima del parqueadero a buscar para vehículos
+    private int MIN_CERCANIA = 200;
+    private int MAX_CERCANIA = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class PreferenciasActivity extends AppCompatActivity {
 
         // Manejo de las seekBar
         seekBar_cercania = (SeekBar)findViewById(R.id.seekBar_cercania);
+        seekBar_cercania.setMax((MAX_CERCANIA - MIN_CERCANIA));
         tv_cercania = (TextView) findViewById(R.id.tv_cercania);
 
         seekBar_precio = (SeekBar)findViewById(R.id.seekBar_precio);
@@ -52,20 +56,23 @@ public class PreferenciasActivity extends AppCompatActivity {
 
         // Se actualiza la UI con las preferencias de usuario que trae el archivo
         tv_cercania.setText("Cercanía: " + cercania + " mts -> " + (double)((cercania)/1000.0) + " km");
-        seekBar_cercania.setProgress(cercania);
+        seekBar_cercania.setProgress(cercania - MIN_CERCANIA);
+
         tv_precio.setText("Precio: $" + precio + " Pesos");
         seekBar_precio.setProgress(precio - MIN_PRECIO);
+
         switch_ofertas.setChecked(conOfertas);
         switch_servicios.setChecked(conServicios);
         switch_dejar_llaves.setChecked(dejarLLaves);
 
         // Escuchador del seekBar_cercania
         seekBar_cercania.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            int progressChangedValue = 0;
+            int progressChangedValue = cercania;
 
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                progressChangedValue = progress;
+                progressChangedValue = MIN_CERCANIA + progress;
                 tv_cercania.setText("Cercanía: " + progressChangedValue + " mts -> " + (double)((progressChangedValue)/1000.0) + " km");
+                cercania = progressChangedValue;
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -88,13 +95,6 @@ public class PreferenciasActivity extends AppCompatActivity {
                 progressChangedValue = MIN_PRECIO + progress;
                 tv_precio.setText("Precio: $" + progressChangedValue + " Pesos");
                 precio = progressChangedValue;
-                /*
-                if(progressChangedValue < 48){
-                    tv_precio.setText("Precio: $ 48 Pesos");
-                }else{
-                    tv_precio.setText("Precio: $" + progressChangedValue + " Pesos");
-                }
-                */
             }
 
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -105,15 +105,6 @@ public class PreferenciasActivity extends AppCompatActivity {
                 //Toast.makeText(PreferenciasActivity.this, "Seek bar progress is :" + progressChangedValue, Toast.LENGTH_SHORT).show();
                 tv_precio.setText("Precio: $" + progressChangedValue + " Pesos");
                 precio = progressChangedValue;
-                /*
-                if(progressChangedValue < 48){
-                    tv_precio.setText("Precio: $ 48 Pesos");
-                    precio = 48;
-                }else{
-                    tv_precio.setText("Precio: $" + progressChangedValue + " Pesos");
-                    precio = progressChangedValue;
-                }*/
-
             }
         });
 

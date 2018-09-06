@@ -6,7 +6,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Bienvenido a Apparcar</string>
-    <string name="title_activity_preferencias">Preferencias de Usuario</string>
+
 
     <!-- Strings related to Login -->
     <string name="prompt_email">Correo Electrónico</string>
@@ -30,13 +30,14 @@
     <string name="save_dejar_llaves">dejarLLaves</string>
     <string name="title_activity_settings">Preferencias</string>
 
-    <!-- Strings related to Preferencias -->
+    <!-- Strings related to Activity Preferencias de Usuario -->
 
     <string name="texto_preferencias">Hola, desde aquí puede CAMBIAR o AJUSTAR sus preferencias de usuario en cualquier momento.
         Estos ajustes ayudan a la aplicación a buscar sus parqueaderos según sus gustos y hábitos.</string>
+    <string name="title_activity_preferencias">Preferencias de Usuario</string>
 
-
-
+    <!-- Strings related to Activity Lista de Parqueaderos  -->
+    <string name="title_activity_lista_parqueaderos">Parqueaderos en la Zona</string>
 
 
     <!-- Strings related to Settings -->
