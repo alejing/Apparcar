@@ -22,12 +22,12 @@ public class PreferenciasActivity extends AppCompatActivity {
     private int cercania, precio;
     private boolean conOfertas, conServicios, dejarLLaves;
     // Precio mínimo y máximo del valor de minuto de los parqueaderos para vehículos
-    private int MIN_PRECIO = 48;
-    private int MAX_PRECIO = 105;
+    private int MIN_PRECIO = 48;  // en pesos
+    private int MAX_PRECIO = 105; // en pesos
     //private int STEP_PRECIO = 1;
     // Cercanía mínima y máxima del parqueadero a buscar para vehículos
-    private int MIN_CERCANIA = 200;
-    private int MAX_CERCANIA = 5000;
+    private int MIN_CERCANIA = 200;   // en mts
+    private int MAX_CERCANIA = 50000; // en mts
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,6 +97,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Se ha deshabilitado el botón de volver atrás
+        // super.onBackPressed();
     }
 
     private void populateAutoComplete() {
@@ -338,18 +345,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
 
-                // Pone prefrencias de usuario por defecto
+                // Sirve para verificar si el archivo de preferencias de usuario ya ha sido creado por la aplicación
+                // Si no ha sido creado, lo crea por defecto, de lo contrario no lo modifica
+                File f = new File(getApplicationContext().getApplicationInfo().dataDir + "/shared_prefs/" + PREFS_NAME + ".xml");
+                if (!f.exists()){
 
-                SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putInt(getString(R.string.save_cercania), 500); // 500 mts defecto
-                editor.putInt(getString(R.string.save_precio), 48); // $48
-                editor.putBoolean(getString(R.string.save_con_ofertas), false); // sin ofertas
-                editor.putBoolean(getString(R.string.save_con_servicios), false); // sin servicios
-                editor.putBoolean(getString(R.string.save_dejar_llaves), false); // sin dejar llaves
-                // Commit the edits!
-                editor.commit();
-
+                    // Pone prefrencias de usuario por defecto si el archivo no existe al correr la sesión de usuario
+                    SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putInt(getString(R.string.save_cercania), 500); // 500 mts defecto
+                    editor.putInt(getString(R.string.save_precio), 48); // $48
+                    editor.putBoolean(getString(R.string.save_con_ofertas), false); // sin ofertas
+                    editor.putBoolean(getString(R.string.save_con_servicios), false); // sin servicios
+                    editor.putBoolean(getString(R.string.save_dejar_llaves), false); // sin dejar llaves
+                    // Commit the edits!
+                    editor.commit();
+                }
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);

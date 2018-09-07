@@ -1,4 +1,6 @@
 <resources>
+
+    <string name="urlApi_getParqueaderos">http://192.168.0.3/apparcar/getParqueaderos.php</string>
     <string name="app_name">Apparcar</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -6,6 +8,11 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Bienvenido a Apparcar</string>
+
+    <string name="parqueaderos_no_encontrados">Opps .. No se han encontrado Parqueaderos con las características deseadas.</string>
+    <string name="error_conexion_servidor">Opps .. Parece que tenemos problemas con los servidores de Apparcar. Por favor verificar si tiene una conexión a interner válida y vuelva a intentar.</string>
+
+    <string name="mensaje_dialogo_cerrar_sesión">¿Esta seguro que desea cerrar sesión?</string>
 
 
     <!-- Strings related to Login -->
@@ -17,11 +24,8 @@
     <string name="error_invalid_password">Contraseña muy corta</string>
     <string name="error_incorrect_password">Contraseña incorrecta</string>
     <string name="error_field_required">Este campo es requerido</string>
-    <string name="permission_rationale">Se requieren permisos de contacto para acceso mediante
-        correo electrónico.
-    </string>
-    <string name="descargando_datos"> Cargando datos... Por favor esperar! ...
-    </string>
+    <string name="permission_rationale">Se requieren permisos de contacto para acceso mediante correo electrónico.</string>
+    <string name="descargando_datos"> Cargando datos. Por favor esperar!</string>
 
     <string name="save_cercania">cercania</string>
     <string name="save_precio">precio</string>

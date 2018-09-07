@@ -110,7 +110,7 @@ public class DetallesParqueadero implements Parcelable {
         this.longitud = longitud;
     }
 
-    public int isEsSobrecupo() {
+    public int getEsSobrecupo() {
         return esSobrecupo;
     }
 
@@ -118,7 +118,7 @@ public class DetallesParqueadero implements Parcelable {
         this.esSobrecupo = esSobrecupo;
     }
 
-    public int isEsTarifaPlana() {
+    public int getTarifaPlana() {
         return esTarifaPlana;
     }
 

@@ -24,12 +24,14 @@ public class ListaParqueaderosActivity extends AppCompatActivity implements Adap
 
         if(listaParqueaderosEncontrados.size() == 0){
             Toast.makeText(ListaParqueaderosActivity.this,
-                    "No se han encontrado Parqueaderos con las características deseadas.",
+                    R.string.parqueaderos_no_encontrados,
                     Toast.LENGTH_LONG)
                     .show();
         }
 
         list = (ListView) findViewById(R.id.listView);
+
+        // Adaptador personalizado para la lista
         AdvancedCustomArrayAdapter adapter = new AdvancedCustomArrayAdapter(this, listaParqueaderosEncontrados);
         list.setAdapter(adapter);
 

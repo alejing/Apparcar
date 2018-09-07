@@ -1,24 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_item_list_view_parqueaderos_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:text="id:" />
 
-    <TextView
-        android:id="@+id/tv_item_list_view_parqueaderos_direccion"
+    <ImageView
+        android:id="@+id/iv_item_list_view_parqueaderos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tv_item_list_view_parqueaderos_id"
-        android:layout_marginTop="61dp"
-        android:text="Dirección:" />
+        android:layout_marginLeft="@dimen/activity_margin_generic_16dp"
+        android:layout_marginTop="@dimen/activity_margin_generic_16dp"
+        app:srcCompat="@mipmap/ic_map_parqueadero_azul" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/iv_item_list_view_parqueaderos"
+        android:layout_marginLeft="72dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_item_list_view_parqueaderos_cupos_totales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cupos Totales:" />
+
+        <TextView
+            android:id="@+id/tv_item_list_view_parqueaderos_cupos_disponibles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cupos Disponibles:" />
+
+        <TextView
+            android:id="@+id/tv_item_list_view_parqueaderos_tarifa_plana"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Tarifa Plana:" />
+
+        <TextView
+            android:id="@+id/tv_item_list_view_parqueaderos_valor_tarifa_plana"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Valor Tarifa Plana:" />
+
+        <TextView
+            android:id="@+id/tv_item_list_view_parqueaderos_dejar_llaves"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Posibilidad de dejar Llaves:" />
+
+        <TextView
+            android:id="@+id/tv_item_list_view_parqueaderos_direccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Dirección:" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Tarifas (pesos/minuto)" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="@dimen/activity_margin_generic_16dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_directions_car_black_24dp" />
+
+            <TextView
+                android:id="@+id/tv_item_list_view_v_carro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="$000" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_moto_perfil_black_24x20dp" />
+
+            <TextView
+                android:id="@+id/tv_item_list_view_v_moto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="$000" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_directions_bike_black_24dp" />
+
+            <TextView
+                android:id="@+id/tv_item_list_view_v_bici"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="$000" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
 </RelativeLayout>
+
+
+
+
