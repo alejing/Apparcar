@@ -102,7 +102,11 @@ public class MainActivity extends AppCompatActivity
         miBuscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+                // Se configura la apertura de la vista tipo busqueda de parqueaderos, enviando el array de parqueaderos totales
+                Intent intent = new Intent(MainActivity.this, BusquedaParqueaderosActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -140,6 +144,7 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception e){
             e.printStackTrace();
         }
+
         // Activación del seguimiento por medio del GPS y sus posibles combinaciones
         gpsTracker = new GPSTrack(MainActivity.this);
         if(gpsTracker.canGetLocation()){
@@ -150,7 +155,6 @@ public class MainActivity extends AppCompatActivity
         }else{
             gpsTracker.showSettingsAlert();
         }
-
 
         //Se crean los procedimientos y métodos para crear un mapa o una vista del mismo
         Bundle mapViewBundle = null;
@@ -314,19 +318,38 @@ public class MainActivity extends AppCompatActivity
 
         int estado = 0; // Retorna estado por defecto -> color azul
 
-        if(0 <= cuposDisponibles && cuposDisponibles <= (cuposTotales * 0.1)){ // Retorna rojo (muy pocos cupos) 0 - 10%
+        int porcentaje = (cuposDisponibles * 100) / cuposTotales; // calcula el porcentaje de cupos disponibles
+
+        if(porcentaje >= 0 && porcentaje <= 10){ // Retorna rojo (muy pocos cupos) 0 - 10%
             estado = 1;
-        }else if((cuposTotales * 0.11) < cuposDisponibles && cuposDisponibles <= (cuposTotales * 0.3)){ // Retorna rosa (pocos cupos) 11 - 30%
+        }else if(porcentaje >= 11 && porcentaje <= 30){ // Retorna rosa (pocos cupos) 11 - 30%
             estado = 2;
-        }else if((cuposTotales * 0.31) < cuposDisponibles && cuposDisponibles <= (cuposTotales * 0.5)){ // Retorna naranja (algunos cupos) 31 - 50%
+        }else if(porcentaje >= 31 && porcentaje <= 50){ // Retorna naranja (algunos cupos) 31 - 50%
             estado = 3;
-        }else if((cuposTotales * 0.51) < cuposDisponibles && cuposDisponibles <= (cuposTotales * 0.8)){ // Retorna verde claro (suficientes cupos) 51 - 80%
+        }else if(porcentaje >= 51 && porcentaje <= 80){ // Retorna verde claro (suficientes cupos) 51 - 80%
             estado = 4;
-        }else if((cuposTotales * 0.81) < cuposDisponibles && cuposDisponibles <= cuposTotales){ // Retorna verde oscuro (muchos cupos) 81 - 100%
+        }else if(porcentaje >= 81 && porcentaje <= 100){ // Retorna verde oscuro (muchos cupos) 81 - 100%
             estado = 5;
         }else{
             estado = 0;
         }
+
+        /*
+
+        if(0 <= cuposDisponibles && cuposDisponibles <= ((int)(cuposTotales * 0.1))){ // Retorna rojo (muy pocos cupos) 0 - 10%
+            estado = 1;
+        }else if(((int)(cuposTotales * 0.11)) <= cuposDisponibles && cuposDisponibles <= ((int)(cuposTotales * 0.3))){ // Retorna rosa (pocos cupos) 11 - 30%
+            estado = 2;
+        }else if(((int)(cuposTotales * 0.31)) <= cuposDisponibles && cuposDisponibles <= ((int)(cuposTotales * 0.5))){ // Retorna naranja (algunos cupos) 31 - 50%
+            estado = 3;
+        }else if(((int)(cuposTotales * 0.51)) <= cuposDisponibles && cuposDisponibles <= ((int)(cuposTotales * 0.8))){ // Retorna verde claro (suficientes cupos) 51 - 80%
+            estado = 4;
+        }else if(((int)(cuposTotales * 0.81)) <= cuposDisponibles && cuposDisponibles <= cuposTotales){ // Retorna verde oscuro (muchos cupos) 81 - 100%
+            estado = 5;
+        }else{
+            estado = 0;
+        }
+        */
         return estado;
     }
 

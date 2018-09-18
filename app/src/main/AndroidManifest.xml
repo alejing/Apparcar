@@ -45,7 +45,11 @@
         <activity
             android:name=".ListaParqueaderosActivity"
             android:label="@string/title_activity_lista_parqueaderos"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".BusquedaParqueaderosActivity"
+            android:label="@string/title_activity_busqueda_parqueaderos"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

@@ -110,7 +110,7 @@ public class AdvancedCustomArrayAdapter extends ArrayAdapter<DetallesParqueadero
             viewContainer.tv_v_tarifa_bici.setText("$" + String.valueOf(parqueaderos.get(position).getValorTarifaBici()));
         }
 
-        // Pone el icono de la lista según esl estado de ocupación
+        // Pone el icono de la lista según el estado de ocupación
         switch(obtenerEstadoParqueadero(parqueaderos.get(position).getCupos(), parqueaderos.get(position).getCuposDisponibles())){
             case 0:
                 viewContainer.iv_icono_estado_parqueadero.setImageResource(R.mipmap.ic_map_parqueadero_azul);
@@ -140,6 +140,23 @@ public class AdvancedCustomArrayAdapter extends ArrayAdapter<DetallesParqueadero
 
         int estado = 0; // Retorna estado por defecto -> color azul
 
+        int porcentaje = (cuposDisponibles * 100) / cuposTotales; // calcula el porcentaje de cupos disponibles
+
+        if(porcentaje >= 0 && porcentaje <= 10){ // Retorna rojo (muy pocos cupos) 0 - 10%
+            estado = 1;
+        }else if(porcentaje >= 11 && porcentaje <= 30){ // Retorna rosa (pocos cupos) 11 - 30%
+            estado = 2;
+        }else if(porcentaje >= 31 && porcentaje <= 50){ // Retorna naranja (algunos cupos) 31 - 50%
+            estado = 3;
+        }else if(porcentaje >= 51 && porcentaje <= 80){ // Retorna verde claro (suficientes cupos) 51 - 80%
+            estado = 4;
+        }else if(porcentaje >= 81 && porcentaje <= 100){ // Retorna verde oscuro (muchos cupos) 81 - 100%
+            estado = 5;
+        }else{
+            estado = 0;
+        }
+
+        /*
         if(0 <= cuposDisponibles && cuposDisponibles <= (cuposTotales * 0.1)){ // Retorna rojo (muy pocos cupos) 0 - 10%
             estado = 1;
         }else if((cuposTotales * 0.11) < cuposDisponibles && cuposDisponibles <= (cuposTotales * 0.3)){ // Retorna rosa (pocos cupos) 11 - 30%
@@ -153,6 +170,7 @@ public class AdvancedCustomArrayAdapter extends ArrayAdapter<DetallesParqueadero
         }else{
             estado = 0;
         }
+        */
         return estado;
     }
 }
