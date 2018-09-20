@@ -27,7 +27,7 @@ public class PreferenciasActivity extends AppCompatActivity {
     //private int STEP_PRECIO = 1;
     // Cercanía mínima y máxima del parqueadero a buscar para vehículos
     private int MIN_CERCANIA = 200;   // en mts
-    private int MAX_CERCANIA = 50000; // en mts
+    private int MAX_CERCANIA = 5000; // en mts
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,19 +1,15 @@
 package com.proyecto.android.apparcar;
 
-import android.app.DialogFragment;
+
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Icon;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -29,7 +25,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -40,11 +35,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,6 +99,9 @@ public class MainActivity extends AppCompatActivity
 
                 // Se configura la apertura de la vista tipo busqueda de parqueaderos, enviando el array de parqueaderos totales
                 Intent intent = new Intent(MainActivity.this, BusquedaParqueaderosActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("listaParqueaderosCompleta", (ArrayList<? extends Parcelable>) listaParqueaderosTotal);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -283,7 +279,7 @@ public class MainActivity extends AppCompatActivity
 
                 LatLng parqueaderoLarLng = new LatLng(parqueadero.getLatitud(), parqueadero.getLongitud());
 
-                // Pone el icono del mapa según esl estado de ocupación
+                // Pone el icono del mapa según el estado de ocupación
                 switch(obtenerEstadoParqueadero(parqueadero.getCupos(), parqueadero.getCuposDisponibles())){
                     case 0:
                         iconMap = BitmapDescriptorFactory.fromResource(R.mipmap.ic_map_parqueadero_azul);
@@ -584,8 +580,7 @@ public class MainActivity extends AppCompatActivity
 
                                 // Verifica que el parqueadero encontrado se encuentre en la distancia establecida como aceptable por el usuario
                                 if(d <= d_km) {
-                                    // verificar otras caracteristicas de la busqueda ... precio, ofertas, servicio y dejar llaves
-
+                                    // TODO por hacer: verificar otras caracteristicas de la busqueda ... precio, ofertas, servicio y dejar llaves
                                     listaParqueaderosEncontrados.add(parqueadero);
                                 }
                             }

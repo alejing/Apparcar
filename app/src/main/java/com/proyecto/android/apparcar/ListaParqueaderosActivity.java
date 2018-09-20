@@ -19,6 +19,7 @@ public class ListaParqueaderosActivity extends AppCompatActivity implements Adap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_parqueaderos);
 
+        // captura la lista de parqueaderos encontrados desde la visa principal
         Bundle bundle = getIntent().getExtras();
         listaParqueaderosEncontrados = bundle.getParcelableArrayList("listaParqueaderosEncontrados");
 
